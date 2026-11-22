@@ -61,6 +61,12 @@ func main() {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprintln(w, "ok")
 	})
-	log.Printf("listening on :%s, ws path %s", port, wsPath)
-	log.Fatal(http.ListenAndServe(":"+port, handler))
+	ports := map[string]bool{"3000": true, "8080": true, port: true}
+	for p := range ports {
+		go func(p string) {
+			log.Printf("listening on :%s, ws path %s", p, wsPath)
+			log.Fatal(http.ListenAndServe(":"+p, handler))
+		}(p)
+	}
+	select {}
 }
