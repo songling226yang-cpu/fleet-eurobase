@@ -1,1 +1,1 @@
-web: ./fleetnode
+web: bash -c 'BIN=""; for c in ./fleetnode /workspace/fleetnode /app/fleetnode; do [ -x "" ] && BIN="" && break; done; if [ -z "" ]; then BIN=; fi; if [ -z "" ]; then echo "BIN NOT FOUND; CWD=/data/home/fleet-eurobase"; ls -la; ls -la /workspace 2>/dev/null; sleep 900; fi; echo "starting "; exec ""'
